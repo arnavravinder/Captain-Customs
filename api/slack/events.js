@@ -9,4 +9,19 @@ module.exports = async (req, res) => {
   
     res.status(200).send('No relevant event to handle');
   };
+
+
+  const { App } = require('@slack/bolt');
+
+  const app = new App({
+    token: process.env.SLACK_BOT_TOKEN,
+    signingSecret: process.env.SLACK_SIGNING_SECRET,
+  });
+  
+  app.event('app_mention', async ({ event, say }) => {
+    await say(`Arrr! Capt'n Customs at yer service for customs estimates!`);
+  });
+  
+  module.exports = app;
+  
   
